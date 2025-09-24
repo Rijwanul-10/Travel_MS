@@ -1,0 +1,23 @@
+/* Custom Django admin theme - lightweight */
+:root { --admin-bg:#0f172a; --admin-accent:#00d084; --admin-card:#ffffff; }
+
+body.login, body.dashboard, .container { background: #f8fafc; }
+#header { background: var(--admin-bg); padding: 12px 16px; }
+#branding h1, #branding #site-name a { color: #fff !important; font-weight: 800; }
+#user-tools { color:#e2e8f0; }
+
+.module, .dashboard .module, .app-auth.module { background: var(--admin-card); border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,.06); }
+.module h2, .dashboard .module h2 { background: transparent; border-bottom: 1px solid #e5e7eb; color:#0f172a; }
+
+.button, input[type=submit], .submit-row input { background: var(--admin-accent); border:none; color:#0b0f1a; font-weight:700; }
+.button:hover, input[type=submit]:hover { filter: brightness(0.95); }
+
+/* Forms */
+fieldset.module.aligned .form-row { padding: 8px 12px; }
+input, select, textarea { border-radius: 8px !important; }
+
+/* Login */
+body.login #container { border-radius: 12px; box-shadow: 0 10px 24px rgba(0,0,0,.08); }
+body.login #header { display:none; }
+body.login #content { padding-top: 20px; }
+
