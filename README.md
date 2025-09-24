@@ -25,7 +25,7 @@ Travel MS/
 ├─ payments/        # Payment model + placeholder flows
 ├─ templates/       # All HTML templates
 ├─ static/css/      # main.css
-└─ schema.sql       # Importable MySQL schema (phpMyAdmin)
+└─ travel_ms.sql       # Importable MySQL schema (phpMyAdmin)
 ```
 
 ## 3) Prerequisites (Windows + XAMPP)
@@ -51,7 +51,7 @@ If `mysqlclient` fails, install a prebuilt wheel suitable for your Python/MySQL 
 - Open phpMyAdmin: `http://localhost/phpmyadmin`
 - Create database: `travel_ms` (utf8mb4, collation utf8mb4_general_ci)
 - Option A (Django migrations): skip importing `schema.sql`
-- Option B (Manual SQL): import `schema.sql` into `travel_ms`
+- Option B (Manual SQL): import `travel_ms.sql` into `travel_ms`
 
 ## 7) Configure Django Settings
 Django already defaults to MySQL via environment variables. You can either set env vars or edit `travelms/settings.py` directly.
@@ -124,7 +124,7 @@ python manage.py collectstatic --noinput
 
 ## 15) Importing schema.sql (Optional)
 If you prefer manual schema setup:
-- Import `schema.sql` in phpMyAdmin to the `travel_ms` database
+- Import `travel_ms.sql` in phpMyAdmin to the `travel_ms` database
 - You can still run migrations; Django will adjust as needed. Prefer clean DB when mixing methods.
 
 ## 16) Environment for Email
@@ -241,3 +241,4 @@ Database settings are in `travelms/settings.py` under `DATABASES['default']`.
 - Booking summary + simple payment placeholders (bKash/Nagad/Card/COD).
 - Admin CRUD for destinations, packages, hotels, vehicles, trips, bookings, payments, users.
 - Auto logout on browser close; password complexity disabled in dev.
+
