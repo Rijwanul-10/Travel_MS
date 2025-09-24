@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Hotels | Travel MS{% endblock %}
+{% block content %}
+<h2>Hotels</h2>
+<form class="grid grid-2" method="get">
+	<div>
+		<label>Search</label>
+		<input type="text" name="q" value="{{ q }}" placeholder="City, hotel or destination" />
+	</div>
+	<div class="grid grid-2">
+		<div><label>Min Price</label><input type="number" step="0.01" name="min_price" /></div>
+		<div><label>Max Price</label><input type="number" step="0.01" name="max_price" /></div>
+	</div>
+	<div>
+		<label>Amenities (comma separated)</label>
+		<input type="text" name="amenities" />
+	</div>
+	<div><button class="btn btn-primary" style="margin-top:28px">Filter</button></div>
+</form>
+
+<div class="grid grid-3" style="margin-top:16px">
+	{% for h in hotels %}
+		<a href="/hotels/{{ h.id }}/" class="card">
+			{% if h.image %}<img class="card-img" src="{{ h.image.url }}" alt="{{ h.name }}" />{% endif %}
+			<div class="card-body">
+				<h3>{{ h.name }}</h3>
+				<p class="badge">{{ h.destination.name }}</p>
+				<p>${{ h.price_per_night }} per night</p>
+			</div>
+		</a>
+	{% empty %}
+		<p>No hotels found.</p>
+	{% endfor %}
+</div>
+{% endblock %}
+
+

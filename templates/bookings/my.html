@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}My Bookings | Travel MS{% endblock %}
+{% block content %}
+<h2>My Bookings</h2>
+<div class="grid grid-3">
+	{% for b in bookings %}
+		<div class="card">
+			<div class="card-body">
+				<p><strong>#{{ b.id }}</strong> • {{ b.get_booking_type_display }}</p>
+				<p>Total: ${{ b.total_price }}</p>
+				<p>Status: {{ b.get_status_display }}</p>
+				<a class="btn btn-outline" href="/bookings/success/{{ b.id }}/">View</a>
+			</div>
+		</div>
+	{% empty %}
+		<p>No bookings yet.</p>
+	{% endfor %}
+</div>
+{% endblock %}
+
+

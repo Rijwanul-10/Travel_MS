@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Trip {{ trip.id }} | Travel MS{% endblock %}
+{% block content %}
+<h2>{{ trip.vehicle.name }}</h2>
+{% if trip.vehicle.destination.image %}
+<img class="card-img" loading="lazy" src="{{ trip.vehicle.destination.image.url }}" alt="{{ trip.vehicle.destination.name }}" />
+{% else %}
+<img class="card-img" loading="lazy" src="{% static 'img/placeholder-transport.svg' %}" alt="{{ trip.vehicle.destination.name }}" />
+{% endif %}
+<p>Departure: {{ trip.departure_time }} • Arrival: {{ trip.arrival_time }}</p>
+<p>Price per seat: ${{ trip.vehicle.price_per_seat }}</p>
+
+<h3>Select Seats</h3>
+<form method="post" action="/bookings/trip/{{ trip.id }}/start/">
+	{% csrf_token %}
+	<label>Seats (comma separated)</label>
+	<input type="text" name="seats" placeholder="e.g., 1A,1B" />
+	<button class="btn btn-primary" type="submit">Book Now</button>
+</form>
+{% endblock %}
+
+

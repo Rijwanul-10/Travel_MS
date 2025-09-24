@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>{% block title %}Travel MS{% endblock %}</title>
+	<link rel="stylesheet" href="/static/css/main.css" />
+	<script defer src="/static/js/home.js"></script>
+</head>
+<body>
+	<header class="site-header">
+		<div class="container header-inner">
+			<a href="/" class="logo">Travel<span>MS</span></a>
+			<nav class="nav">
+				<a href="/destinations/">Destinations</a>
+				<a href="/hotels/">Hotels</a>
+				<a href="/transport/">Transport</a>
+				<a href="/bookings/my/">My Bookings</a>
+				{% if user.is_authenticated %}
+					<a href="/accounts/logout/">Logout</a>
+				{% else %}
+					<a href="/accounts/login/">Login</a>
+					<a href="/accounts/register/" class="btn btn-primary">Register</a>
+				{% endif %}
+			</nav>
+		</div>
+	</header>
+	<main class="container">
+		{% if messages %}
+			<ul class="messages">
+				{% for message in messages %}<li class="{{ message.tags }}">{{ message }}</li>{% endfor %}
+			</ul>
+		{% endif %}
+		{% block content %}{% endblock %}
+	</main>
+	<footer class="site-footer">
+		<div class="container">
+			<p>&copy; {{ now|date:'Y' }} TravelMS. All rights reserved.</p>
+		</div>
+	</footer>
+</body>
+</html>
+
+

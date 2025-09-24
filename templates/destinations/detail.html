@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ destination.name }} | Travel MS{% endblock %}
+{% block content %}
+<h2>{{ destination.name }}</h2>
+{% if destination.image %}
+<img class="card-img" loading="lazy" src="{{ destination.image.url }}" alt="{{ destination.name }}" />
+{% else %}
+<img class="card-img" loading="lazy" src="{% static 'img/placeholder-destination-wide.svg' %}" alt="{{ destination.name }}" />
+{% endif %}
+<p><strong>Country:</strong> {{ destination.country }}</p>
+<p>{{ destination.description }}</p>
+
+<h3>Packages</h3>
+<div class="grid grid-3">
+	{% for p in destination.packages.all %}
+		<a class="card" href="/destinations/package/{{ p.slug }}/">
+			<div class="card-body">
+				<h4>{{ p.title }}</h4>
+				<p>{{ p.duration_days }} days</p>
+				<p><strong>${{ p.price }}</strong></p>
+			</div>
+		</a>
+	{% empty %}
+		<p>No packages for this destination.</p>
+	{% endfor %}
+</div>
+{% endblock %}
+
+

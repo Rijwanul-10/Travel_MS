@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Transport | Travel MS{% endblock %}
+{% load static %}
+{% block content %}
+<h2>Available Bus Trips</h2>
+<div class="grid grid-3">
+	{% for t in trips %}
+		<a class="card" href="/transport/trip/{{ t.id }}/">
+			{% if t.vehicle.vehicle_type == 'BUS' %}
+				<img class="card-img" loading="lazy" src="{% static 'img/transport-bus.svg' %}" alt="Bus" />
+			{% elif t.vehicle.vehicle_type == 'CAR' %}
+				<img class="card-img" loading="lazy" src="{% static 'img/transport-car.svg' %}" alt="Car" />
+			{% else %}
+				<img class="card-img" loading="lazy" src="{% static 'img/placeholder-transport.svg' %}" alt="Transport" />
+			{% endif %}
+			<div class="card-body">
+				<h4>{{ t.vehicle.name }}</h4>
+				<p class="badge">{{ t.vehicle.get_vehicle_type_display }}</p>
+				<p>{{ t.vehicle.destination.name }}</p>
+				<p>Departure: {{ t.departure_time }}</p>
+			</div>
+		</a>
+	{% empty %}
+		<p>No trips.</p>
+	{% endfor %}
+</div>
+{% endblock %}
+
+

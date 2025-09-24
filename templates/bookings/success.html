@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Booking Confirmation | Travel MS{% endblock %}
+{% block content %}
+<h2>Booking Confirmed</h2>
+<p>Your booking #{{ booking.id }} has been placed.</p>
+<p>Type: {{ booking.get_booking_type_display }} | Total: ${{ booking.total_price }}</p>
+<p>Status: {{ booking.get_status_display }}</p>
+<a class="btn btn-primary" href="/bookings/my/">Go to My Bookings</a>
+{% endblock %}
+
+

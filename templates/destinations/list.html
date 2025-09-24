@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Destinations | Travel MS{% endblock %}
+{% block content %}
+<h2>Destinations</h2>
+<form method="get" class="search-bar">
+	<input type="text" name="q" value="{{ q }}" placeholder="Search destinations" />
+	<button class="btn btn-primary">Search</button>
+</form>
+<div class="grid grid-3">
+	{% for d in destinations %}
+		<a href="/destinations/{{ d.slug }}/" class="card">
+			{% if d.image %}
+				<img class="card-img" loading="lazy" src="{{ d.image.url }}" alt="{{ d.name }}" />
+			{% else %}
+				<img class="card-img" loading="lazy" src="{% static 'img/placeholder-destination.svg' %}" alt="{{ d.name }}" />
+			{% endif %}
+			<div class="card-body">
+				<h3>{{ d.name }}</h3>
+				<p class="badge">{{ d.country }}</p>
+				<p>{{ d.description|truncatewords:20 }}</p>
+			</div>
+		</a>
+	{% empty %}
+		<p>No destinations found.</p>
+	{% endfor %}
+</div>
+{% endblock %}
+
+

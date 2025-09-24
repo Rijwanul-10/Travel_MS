@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ package.title }} | Travel MS{% endblock %}
+{% block content %}
+<div class="grid grid-2">
+	<div>
+		<h2>{{ package.title }}</h2>
+{% if package.image %}
+<img class="card-img" loading="lazy" src="{{ package.image.url }}" alt="{{ package.title }}" />
+{% else %}
+<img class="card-img" loading="lazy" src="{% static 'img/placeholder-package.svg' %}" alt="{{ package.title }}" />
+{% endif %}
+		<p><a href="/destinations/{{ package.destination.slug }}/">{{ package.destination.name }}</a> • {{ package.duration_days }} days</p>
+		<p><strong>Price:</strong> ${{ package.price }}</p>
+		<h3>Itinerary</h3>
+		<ul>
+			{% for item in package.itinerary %}
+				<li>{{ item }}</li>
+			{% empty %}
+				<li>Itinerary to be provided.</li>
+			{% endfor %}
+		</ul>
+		<h3>Includes</h3>
+		<ul>
+			{% for item in package.includes %}
+				<li>{{ item }}</li>
+			{% empty %}
+				<li>Details to be provided.</li>
+			{% endfor %}
+		</ul>
+		<h3>Excludes</h3>
+		<ul>
+			{% for item in package.excludes %}
+				<li>{{ item }}</li>
+			{% empty %}
+				<li>Details to be provided.</li>
+			{% endfor %}
+		</ul>
+	</div>
+	<div>
+		<a class="btn btn-primary" href="/bookings/package/{{ package.id }}/start/">Book </a>
+	</div>
+</div>
+{% endblock %}
+
+

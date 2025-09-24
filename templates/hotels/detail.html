@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}{{ hotel.name }} | Travel MS{% endblock %}
+{% block content %}
+<h2>{{ hotel.name }}</h2>
+<p><strong>Destination:</strong> {{ hotel.destination.name }}</p>
+<p><strong>Address:</strong> {{ hotel.address }}</p>
+<p><strong>Price:</strong> ${{ hotel.price_per_night }} per night</p>
+<p><strong>Amenities:</strong> {{ hotel.amenities|join:', ' }}</p>
+
+<h3>Rooms</h3>
+<div class="grid grid-3">
+	{% for r in hotel.rooms.all %}
+		<div class="card">
+			<div class="card-body">
+				<h4>{{ r.room_type }}</h4>
+				<p>Capacity: {{ r.capacity }}</p>
+				<p>Price: ${{ r.price }}</p>
+				{% if r.available %}
+					<a class="btn btn-primary" href="/bookings/hotel-room/{{ r.id }}/start/">Book Now</a>
+				{% else %}
+					<p>Not available</p>
+				{% endif %}
+			</div>
+		</div>
+	{% empty %}
+		<p>No rooms.</p>
+	{% endfor %}
+</div>
+{% endblock %}
+
+

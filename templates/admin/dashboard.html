@@ -1,0 +1,65 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+{% block content %}
+<div id="content-main">
+	<div class="module">
+		<h2>Overview</h2>
+		<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding:12px;">
+			<div><strong>Users</strong><div>{{ user_count }}</div></div>
+			<div><strong>Bookings</strong><div>{{ booking_count }}</div></div>
+			<div><strong>Payments</strong><div>{{ payment_count }}</div></div>
+		</div>
+	</div>
+
+	<div class="module">
+		<h2>Latest Users</h2>
+		<table>
+			<tr><th>Username</th><th>Email</th><th>Joined</th></tr>
+			{% for u in latest_users %}
+			<tr><td>{{ u.username }}</td><td>{{ u.email }}</td><td>{{ u.date_joined }}</td></tr>
+			{% empty %}
+			<tr><td colspan="3">No users.</td></tr>
+			{% endfor %}
+		</table>
+	</div>
+
+	<div class="module">
+		<h2>Latest Bookings</h2>
+		<table>
+			<tr><th>#</th><th>User</th><th>Type</th><th>Total</th><th>Status</th><th>Date</th></tr>
+			{% for b in latest_bookings %}
+			<tr>
+				<td>{{ b.id }}</td>
+				<td>{{ b.user.username }}</td>
+				<td>{{ b.get_booking_type_display }}</td>
+				<td>${{ b.total_price }}</td>
+				<td>{{ b.get_status_display }}</td>
+				<td>{{ b.created_at }}</td>
+			</tr>
+			{% empty %}
+			<tr><td colspan="6">No bookings.</td></tr>
+			{% endfor %}
+		</table>
+	</div>
+
+	<div class="module">
+		<h2>Latest Payments</h2>
+		<table>
+			<tr><th>#</th><th>Booking</th><th>Method</th><th>Amount</th><th>Status</th><th>Date</th></tr>
+			{% for p in latest_payments %}
+			<tr>
+				<td>{{ p.id }}</td>
+				<td>{{ p.booking_id }}</td>
+				<td>{{ p.get_method_display }}</td>
+				<td>${{ p.amount }}</td>
+				<td>{{ p.get_status_display }}</td>
+				<td>{{ p.created_at }}</td>
+			</tr>
+			{% empty %}
+			<tr><td colspan="6">No payments.</td></tr>
+			{% endfor %}
+		</table>
+	</div>
+</div>
+{% endblock %}
+

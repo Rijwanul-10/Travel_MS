@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Checkout | Travel MS{% endblock %}
+{% block content %}
+<h2>Booking Summary</h2>
+<div class="card">
+	<div class="card-body">
+		<p><strong>Item:</strong> {{ cart.title }}</p>
+		<p><strong>Quantity:</strong> {{ cart.quantity }}</p>
+		<p><strong>Unit Price:</strong> ${{ cart.price }}</p>
+		<p><strong>Total:</strong> ${{ total }}</p>
+		<p><strong>Cancellation Policy:</strong> {{ cancellation_policy }}</p>
+	</div>
+</div>
+
+<h3>Traveler Details</h3>
+<form method="post">
+	{% csrf_token %}
+	{{ traveler_form.non_field_errors }}
+	<div class="form-row">
+		<div><label>Full name</label>{{ traveler_form.full_name }}</div>
+		<div><label>Email</label>{{ traveler_form.email }}</div>
+	</div>
+	<div class="form-row">
+		<div><label>Phone</label>{{ traveler_form.phone }}</div>
+		<div><label>Notes</label>{{ traveler_form.notes }}</div>
+	</div>
+
+<h3>Payment Method</h3>
+	{{ payment_form.method }}
+	<div style="margin-top:12px">
+		<button class="btn btn-primary" type="submit">Proceed to Pay</button>
+	</div>
+</form>
+{% endblock %}
+
+

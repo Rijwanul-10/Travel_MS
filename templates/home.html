@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home | Travel MS{% endblock %}
+{% block content %}
+<section class="hero">
+	<h1>Explore. Book. Travel.</h1>
+	<form action="/destinations/" method="get" class="search-bar">
+		<input type="text" name="q" placeholder="Search destinations, packages, hotels" />
+		<button type="submit" class="btn btn-primary">Search</button>
+	</form>
+</section>
+
+<section>
+	<h2>Featured Packages</h2>
+	<div class="carousel" id="featured-packages">
+		<div class="carousel-track">
+			{% for p in featured %}
+				<a class="card package-card" href="/destinations/package/{{ p.slug }}/">
+					{% if p.image %}
+						<img loading="lazy" src="{{ p.image.url }}" alt="{{ p.title }}" class="card-img" />
+					{% else %}
+						<img loading="lazy" src="{% static 'img/placeholder-package.svg' %}" alt="{{ p.title }}" class="card-img" />
+					{% endif %}
+					<div class="card-body">
+						<h4>{{ p.title }}</h4>
+						<p>{{ p.destination.name }} • {{ p.duration_days }} days</p>
+						<p class="price">${{ p.price }}</p>
+					</div>
+				</a>
+			{% empty %}
+				<p>Browse our curated travel packages.</p>
+			{% endfor %}
+		</div>
+		<button class="carousel-btn prev" aria-label="Previous">&#10094;</button>
+		<button class="carousel-btn next" aria-label="Next">&#10095;</button>
+	</div>
+</section>
+{% endblock %}
+
+

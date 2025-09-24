@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Login | Travel MS{% endblock %}
+{% block content %}
+<h2>Login</h2>
+<form method="post">
+	{% csrf_token %}
+	{{ form.non_field_errors }}
+	<label>Username</label>
+	{{ form.username }}
+	<label>Password</label>
+	{{ form.password }}
+	<button class="btn btn-primary" type="submit">Login</button>
+</form>
+<p>Don't have an account? <a href="/accounts/register/">Register</a></p>
+{% endblock %}
+
+
